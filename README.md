@@ -40,3 +40,5 @@ How it works:
     ```
 
 So, we can use this to essentially access information about what compilation did or did not optimize away at runtime. This is handy for avoiding compensatory effort that only needs to be spent when certain functionality is invoked, but you don't want to use cargo features for whatever reason.
+
+Note that this doesn't work quite as intended for the time being - we need to use a build.rs similar to other `*-sys` crates that build shared objects and uses them to link against, and right now this just serves as a simple proof of concept that you can do this kind of thing at all.
