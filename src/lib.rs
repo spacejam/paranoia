@@ -7,7 +7,8 @@
 //! # Examples
 //!
 //! `Cargo.toml`
-//! ```
+//!
+//! ```no_build
 //! [dependencies]
 //! paranoia_caller = "*"
 //! paranoia = "*"
@@ -29,15 +30,25 @@
 //! assert!(paranoia::marker_exists());
 //! ```
 use libc::{dlsym, RTLD_NEXT};
+use std::ffi::CString;
+use std::sync::{
+    atomic::{AtomicBool, Ordering},
+    Once,
+};
 
 /// Check to see if the marker has been optimized away or not.
 pub fn marker_exists() -> bool {
-    use std::ffi::CString;
+    static DLSYM: Once = Once::new();
+    static EXISTS: AtomicBool = AtomicBool::new(true);
 
-    let symbol = CString::new(b"___paranoia_present".to_vec()).unwrap();
+    DLSYM.call_once(|| {
+        let symbol = CString::new(b"___paranoia_present".to_vec()).unwrap();
 
-    #[allow(unsafe_code)]
-    let ptr = unsafe { dlsym(RTLD_NEXT, symbol.as_ptr()) };
+        #[allow(unsafe_code)]
+        let ptr = unsafe { dlsym(RTLD_NEXT, symbol.as_ptr()) };
 
-    !ptr.is_null()
+        EXISTS.store(!ptr.is_null(), Ordering::SeqCst)
+    });
+
+    EXISTS.load(Ordering::Relaxed)
 }
