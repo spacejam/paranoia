@@ -11,7 +11,7 @@
 //!
 //! ```no_build
 //! [dependencies]
-//! paranoia_caller = "*"
+//! paranoia-caller = "*"
 //! paranoia = "*"
 //! ```
 //!
