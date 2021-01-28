@@ -1,8 +1,9 @@
 //! Paranoia is a simple hack to see if some code was optimized
-//! away (by never being called) or not. This is not guaranteed
-//! to work, and serves only as a hint. But there are no false
-//! negatives - if `marker_exists` returns false, you can be
-//! certain that the call to marker was fully optimized away.
+//! away (by never being called) or not. This only serves as a
+//! hint because sometimes the compiler isn't able to determine
+//! whether code is able to be fully eliminated or not. But there
+//! are no false negatives - if `marker_exists` returns false, you
+//! can be certain that the call to marker was fully optimized away.
 //!
 //! # Examples
 //!
