@@ -30,26 +30,24 @@
 //! }
 //! assert!(paranoia::marker_exists());
 //! ```
-use libc::{dlsym, RTLD_NEXT};
-use std::ffi::CString;
-use std::sync::{
-    atomic::{AtomicBool, Ordering},
-    Once,
-};
+
+fn exists() -> bool {
+    use libc::{dlsym, RTLD_NEXT};
+    use std::ffi::CString;
+
+    let symbol = CString::new(b"___paranoia_present".to_vec()).unwrap();
+
+    #[allow(unsafe_code)]
+    let ptr = unsafe { dlsym(RTLD_NEXT, symbol.as_ptr()) };
+
+    !ptr.is_null()
+}
+
+lazy_static::lazy_static! {
+    static ref EXISTS: bool = exists();
+}
 
 /// Check to see if the marker has been optimized away or not.
 pub fn marker_exists() -> bool {
-    static DLSYM: Once = Once::new();
-    static EXISTS: AtomicBool = AtomicBool::new(true);
-
-    DLSYM.call_once(|| {
-        let symbol = CString::new(b"___paranoia_present".to_vec()).unwrap();
-
-        #[allow(unsafe_code)]
-        let ptr = unsafe { dlsym(RTLD_NEXT, symbol.as_ptr()) };
-
-        EXISTS.store(!ptr.is_null(), Ordering::SeqCst)
-    });
-
-    EXISTS.load(Ordering::Relaxed)
+    *EXISTS
 }
