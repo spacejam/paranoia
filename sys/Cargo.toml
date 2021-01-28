@@ -1,0 +1,13 @@
+[package]
+name = "paranoia-sys"
+version = "0.1.0"
+authors = ["Tyler Neely <t@jujit.su>"]
+edition = "2018"
+description = "Programmatically determine whether code was optimized away or not"
+license = "MIT/Apache-2.0"
+homepage = "https://github.com/spacejam/paranoia"
+repository = "https://github.com/spacejam/paranoia"
+documentation = "https://docs.rs/paranoia/"
+
+[lib]
+crate-type = ["cdylib"]
