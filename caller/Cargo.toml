@@ -1,0 +1,15 @@
+[package]
+name = "paranoia-caller"
+authors = ["Tyler Neely <t@jujit.su>"]
+description = "Programmatically determine whether code was optimized away or not"
+license = "MIT/Apache-2.0"
+homepage = "https://github.com/spacejam/paranoia"
+repository = "https://github.com/spacejam/paranoia"
+documentation = "https://docs.rs/paranoia/"
+edition = "2018"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+paranoia-sys = { version = "0.1.0", path = "./sys" }

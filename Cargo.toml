@@ -1,0 +1,15 @@
+[package]
+name = "paranoia"
+authors = ["Tyler Neely <t@jujit.su>"]
+description = "Programmatically determine whether code was optimized away or not"
+license = "MIT/Apache-2.0"
+homepage = "https://github.com/spacejam/paranoia"
+repository = "https://github.com/spacejam/paranoia"
+documentation = "https://docs.rs/paranoia/"
+edition = "2018"
+version = "0.1.0"
+
+[dependencies]
+paranoia-caller = { version = "0.1.0", path = "./caller" }
+paranoia-sys = { version = "0.1.0", path = "./sys" }
+libc = "0.2.83"
