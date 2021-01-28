@@ -7,7 +7,7 @@ homepage = "https://github.com/spacejam/paranoia"
 repository = "https://github.com/spacejam/paranoia"
 documentation = "https://docs.rs/paranoia/"
 edition = "2018"
-version = "0.1.1"
+version = "0.1.2"
 
 [dependencies]
 paranoia-caller = { version = "0.1.0" }
